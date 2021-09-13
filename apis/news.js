@@ -1,42 +1,53 @@
-/**
- * https://newsapi.org/v2/everything?q=bitcoin&apiKey=f1ccd404bda94180a9069d048b9178bc
- * Key = f1ccd404bda94180a9069d048b9178bc
- */
+const { default: axios } = require('axios');
 const https = require('https');
 
-const getNewsObjects = function(res, req) {
-    const options = createNewsOptions(req.params.title);
-    console.log(options);
+// const getNewsObjects = (req, res) => {
+//     const options = createNewsOptions(req.params.title);
+//     // console.log(options);
    
-    const newsReq = https.request(options, (newsRes) => {
-      let body = [];
-      newsRes.on('data',function(chunk) {
-          body.push(chunk);
-      });
+//     const newsReq = https.request(options, (newsRes) => {
+//       let body = [];
+//       newsRes.on('data',function(chunk) {
+//           body.push(chunk);
+//       });
       
-      newsRes.on('end', function() {
-          res.writeHead(newsRes.statusCode,{'content-type': 'text/html'});
+//       newsRes.on('end', function() {
+//           res.writeHead(newsRes.statusCode,{'content-type': 'application/json'});
           
-          const bodyString = body.join('');
-        //   const rsp = JSON.parse(bodyString);
-        //   const s = createPage('Flickr Photo Search',rsp);
-          res.end(bodyString);
-      });
+//           const bodyString = body.join('');
+//         //   const rsp = JSON.parse(bodyString);
+//         //   const s = createPage('Flickr Photo Search',rsp);
+//         // console.log(JSON.parse(bodyString));
+//           res.end(bodyString);
+//       });
       
-    });
+//     });
    
-    newsReq.on('error', (e) => {
-        console.error(e);
-    });
+//     newsReq.on('error', (e) => {
+//         console.error(e.message);
+//     });
    
-    newsReq.end();   
-}
+//     newsReq.end();   
+// }
+
+const getNewsObjects = (query) => {
+    return axios
+    .get("https://newsapi.org/v2/everything?" +"q=" + query + 
+    "&pageSize=10" + "&language=en" + "&sortBy=relevancy" + 
+    "&apiKey=" + process.env.NEWSAPIKEY)
+    .then(response => {
+        return response.data.articles;
+    })
+    .catch(error => {
+        console.log(error.response.statusText);
+    });
+};
 
 
 const params = {
     pageSize: 10,
     language: 'en',
-    sortBy: 'publishedAt',
+    sortBy: 'relevancy',
     api_key:  process.env.NEWSAPIKEY
   };
   

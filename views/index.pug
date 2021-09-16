@@ -1,5 +1,23 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  div.intro
+    h1.my-4.text-center #{title}
+
+  div.text-center.intro
+    p Find most relevant current news
+    p Read concise article summaries composed of their most important content
+
+  form.text-center(action="/search")
+    div(align ="center")
+      div.col-md-5
+        label(for="title") News Topic Search 
+        input.form-control(type='text', placeholder='Search Topic', name='topic')
+        br
+        label(for="type") Article Contents
+        select.form-control(name='contents')
+          option(value='full text') Full Text
+          option(value='summary') Summarised
+        br
+
+        button#add-btn.form-control(type='submit') SEARCH

@@ -1,8 +1,24 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    background-color: rgb(29, 29, 29) !important;
+  }
+  
+a {
+    color: #00B7FF;
 }
 
-a {
-  color: #00B7FF;
+label {
+    color:white;
+    font-size: larger;
+    font-weight: bold;
+}
+
+.intro {
+    color: white;
+}
+
+#add-btn {
+    background-color: #00B7FF;
+    color: white;
 }

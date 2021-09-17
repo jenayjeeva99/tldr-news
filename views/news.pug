@@ -1,0 +1,23 @@
+extends index
+
+block news
+  -articles = articles
+  br
+  br
+
+  div.container.my-3 
+  each article, i in articles
+    div.card.text
+      img.card-img-top(src=articles[i].image, alt="Card image cap")
+
+    div.card-body
+      if summary==='full text'
+        h.card-title.text #{articles[i].title}
+        p.card-text.text #{articles[i].content}
+      else 
+        h.card-title.text #{articles[i].title} (Summary)
+        p.card-text.text #{articles[i].summary} 
+        
+      //- a(href="#" class="card-link") Go somewhere  
+    br
+    br

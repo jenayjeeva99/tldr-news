@@ -47,7 +47,7 @@ const getContents = (articles) => {
 const createFullTextString = (paragraphs) => {
   let i = 0;
   paragraphs.forEach((paragraph) => {
-    paragraphs[i] = paragraph+' \n ';
+    paragraphs[i] = paragraph+' \n\n ';
     i++;
   });
   const fulltext = paragraphs.join('');

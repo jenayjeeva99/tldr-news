@@ -7,10 +7,10 @@ const getNewsObjects = (query) => {
     .get("https://newsapi.org/v2/everything?" +"q=" + query + 
     "&pageSize=5" + "&language=en" + "&sortBy=relevancy" + 
     "&apiKey=" + process.env.NEWSAPIKEY)
-    .then(response => {
+    .then((response) => {
         return truncateArticles(response.data.articles);
     })
-    .catch(error => {
+    .catch((error) => {
         console.log(error.response.statusText);
     });
 };

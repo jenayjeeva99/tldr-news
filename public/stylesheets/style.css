@@ -2,6 +2,7 @@ body {
     padding: 50px;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
     background-color: rgb(29, 29, 29) !important;
+    white-space: pre-line;
   }
   
 a {
@@ -21,4 +22,34 @@ label {
 #add-btn {
     background-color: #00B7FF;
     color: white;
+}
+
+.card {
+    width: 50%;
+    max-width: 500px;
+    margin: 0 auto;
+    float: none;
+    margin-bottom: 10px;
+    background-color: rgb(255, 255, 255);
+
+}
+
+.text {
+    color: white;
+    width: 75%;
+    margin: 0 auto;
+    float: none;
+    margin-bottom: 10px;
+
+
+}
+
+.card-title {
+    color:white;
+    font-size: larger;
+    font-weight: bold;
+    margin: 0 auto;
+    float: none;
+    margin-bottom: 10px;
+
 }

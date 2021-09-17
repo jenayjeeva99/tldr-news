@@ -1,23 +1,26 @@
 extends index
 
 block news
-  -articles = articles
   br
-  br
-
-  div.container.my-3 
   each article, i in articles
-    div.card.text
-      img.card-img-top(src=articles[i].image, alt="Card image cap")
+    div.container.my-3 
 
-    div.card-body
-      if summary==='full text'
-        h.card-title.text #{articles[i].title}
-        p.card-text.text #{articles[i].content}
-      else 
-        h.card-title.text #{articles[i].title} (Summary)
-        p.card-text.text #{articles[i].summary} 
-        
-      //- a(href="#" class="card-link") Go somewhere  
-    br
-    br
+      div.card-body
+        img.card-img-top(src=articles[i].image, alt="Card image cap")
+        if summary==='full text'
+          br
+          h.card-title #{i+1}. #{articles[i].title}
+          p.text Source: #{articles[i].source}
+          p.text Author: #{articles[i].author}
+          p.text URL: #{articles[i].url}
+          p.card-text.text #{articles[i].content}
+          br
+        else
+          br
+          h.card-title #{i+1}. #{articles[i].title} (Summary)
+          p.text source: #{articles[i].source}
+          p.text Author: #{articles[i].author}
+          p.text URL: #{articles[i].url}
+          p.card-text.text #{articles[i].summary} 
+          br
+      br

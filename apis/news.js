@@ -5,7 +5,7 @@ const https = require('https');
 const getNewsObjects = (query) => {
     return axios
     .get("https://newsapi.org/v2/everything?" +"q=" + query + 
-    "&pageSize=5" + "&language=en" + "&sortBy=relevancy" + 
+    "&pageSize=10" + "&language=en" + "&sortBy=relevancy" + 
     "&apiKey=" + process.env.NEWSAPIKEY)
     .then((response) => {
         return truncateArticles(response.data.articles);

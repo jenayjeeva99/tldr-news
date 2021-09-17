@@ -15,6 +15,16 @@ label {
     font-weight: bold;
 }
 
+img {
+    max-width: 50%;
+    max-width: 50%;
+    align-items: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
 .intro {
     color: white;
 }
@@ -25,9 +35,9 @@ label {
 }
 
 .card {
-    width: 50%;
+    width: 10%;
     max-width: 500px;
-    margin: 0 auto;
+    margin: auto;
     float: none;
     margin-bottom: 10px;
     background-color: rgb(255, 255, 255);
@@ -35,21 +45,28 @@ label {
 }
 
 .text {
-    color: white;
-    width: 75%;
+    width: 90%;
     margin: 0 auto;
     float: none;
     margin-bottom: 10px;
-
-
 }
 
 .card-title {
-    color:white;
     font-size: larger;
     font-weight: bold;
     margin: 0 auto;
     float: none;
-    margin-bottom: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+}
 
+.card-body {
+    border-radius: 10px;
+    max-width: 85%;
+    color: black;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
 }

@@ -7,7 +7,7 @@ const {getContents, getSummary} = require('../apis/analysis');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', {title: "TL;DR NEWS"});
+  res.render('index');
 });
 
 router.get('/search/', function(req, res) {
@@ -23,7 +23,6 @@ router.get('/search/', function(req, res) {
     .catch( (error) => {
       console.log(error);
     });
-  // contents.forEach(content => console.log(content));
 });
 
 

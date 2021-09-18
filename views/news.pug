@@ -12,15 +12,15 @@ block news
           h.card-title #{i+1}. #{articles[i].title}
           p.text Source: #{articles[i].source}
           p.text Author: #{articles[i].author}
-          p.text URL: #{articles[i].url}
           p.card-text.text #{articles[i].content}
           br
+          a(href=articles[i].url) SOURCE ARTICLE
         else
           br
           h.card-title #{i+1}. #{articles[i].title} (Summary)
-          p.text source: #{articles[i].source}
+          p.text Source: #{articles[i].source}
           p.text Author: #{articles[i].author}
-          p.text URL: #{articles[i].url}
           p.card-text.text #{articles[i].summary} 
           br
+          a(href=articles[i].url) SOURCE ARTICLE
       br

@@ -1,8 +1,13 @@
-// const { default: axios } = require('axios');
-var axios = require("axios").default;
+const { default: axios } = require('axios');
 var qs = require("qs");
 
-
+/**
+ * Creates post requests to the extract article contents endpoint for each article 
+ * and stores them as promises (to be handled)
+ *  
+ * @param {Object[]}  Array of news articles
+ * @returns           Array of post request pending promises
+ */
 const createContentsPromises = (articles) => {
   let promises = [];
   for (const article of articles) {
@@ -21,29 +26,39 @@ const createContentsPromises = (articles) => {
   return promises;
 }
 
+/**
+ * Handles each promise in the promises array to retrieve the contents from the articles' URLs
+ * and store them in their respective news article object
+ * 
+ * @param {Object[]}  Array of news articles 
+ * @returns           The passed in articles with a new contents field (retrieved from the post request)
+ */
 const getContents = (articles) => {
   const promises = createContentsPromises(articles);
   return Promise.all(promises)
   .then( (responses) => {
     let i = 0;
     for (const response of responses) {
-      try {
-        const textContent = response.data.website.contents;
-        if (textContent === "") throw error;
-        articles[i].content = createFullTextString(textContent);
-        i++;
-      }
-      catch {
-        articles[i].error = "No content in this article provided";
-      }
+      const textContent = response.data.website.contents;
+      articles[i].content = createFullTextString(textContent);
+      i++;
     }
   })
   .then(() => articles)
   .catch((error) => {
-    console.log(error.response);
+    error.message = "No news found on this topic";
+    throw error;
+
   });
 }
 
+/**
+ * Converts array of strings (paragraphs) to a full text string with double linefeeds 
+ * to maintain the paragraphing
+ * 
+ * @param {String[]}  Array of strings (paragraphs from news the news articles) 
+ * @returns           A single full text string of the article contents with some formatting
+ */
 const createFullTextString = (paragraphs) => {
   let i = 0;
   paragraphs.forEach((paragraph) => {
@@ -54,6 +69,13 @@ const createFullTextString = (paragraphs) => {
   return fulltext;
 };
 
+/**
+ * Creates post requests to the summarise text endpoint for each article 
+ * and stores them as promises (to be handled)
+ * 
+ * @param {Object[]}  Array of news articles
+ * @returns           Array of post request pending promises
+ */
 const createSummaryPromises = (articles) => {
   let promises = [];
 
@@ -78,30 +100,31 @@ const createSummaryPromises = (articles) => {
   return promises;
 };
 
+/**
+ * Uses AI text summary endpoint to generate a summary of article news
+ * 
+ * @param {Object[]}  Array of news articles 
+ * @returns           Array of articles with new field of summarised article contents
+ */
 const getSummary = (articles) => {
   const promises = createSummaryPromises(articles);
   return Promise.all(promises)
   .then( (responses) => {
     let i = 0;
     for (const response of responses) {
-      try {
-        const summaryAnalysis = response.data.summary;
-        articles[i].summary = summaryAnalysis;
-        i++;
-      }
-      catch {
-        articles[i].error = "No sentiment could be provided";
-      }
+      const summaryAnalysis = response.data.summary;
+      articles[i].summary = summaryAnalysis;
+      i++;
     }
   })
   .then(() => {
     return articles;
   })
   .catch((error) => {
-    console.log(error.response);
+    error.message = "No summaries could be created";
+    throw error;
   });
 }
-
 
 module.exports = {getContents, getSummary};
     

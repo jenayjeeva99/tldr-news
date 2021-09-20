@@ -1,7 +1,10 @@
 const { default: axios } = require('axios');
-const https = require('https');
 
-
+/**
+ * 
+ * @param {String}  Topic for news search 
+ * @returns         Javascript objects array of top 10 articles
+ */
 const getNewsObjects = (query) => {
     return axios
     .get("https://newsapi.org/v2/everything?" +"q=" + query + 
@@ -11,10 +14,16 @@ const getNewsObjects = (query) => {
         return truncateArticles(response.data.articles);
     })
     .catch((error) => {
-        console.log(error.response.statusText);
+        error.message = "No news could be retrieved - try again";
+        throw error;
     });
 };
 
+/**
+ * 
+ * @param {Object[]} Array of news articles
+ * @returns          The passed in articles with the selected relevant fields
+ */
 const truncateArticles = (articles) => {
     truncatedArticles = [];
     for (const article of articles) {
@@ -30,30 +39,5 @@ const truncateArticles = (articles) => {
     return truncatedArticles;
 }
 
-function createOptions(query) {
-    const params = {
-        pageSize: 5,
-        language: 'en',
-        sortBy: 'relevancy',
-        api_key:  process.env.NEWSAPIKEY
-    };
-    
-    const options = {
-        hostname: 'newsapi.org',
-        port:     443,
-        path:     '/v2/everything?',
-        method:   'GET'
-    };
-    
-    const str = 'q=' + query +
-                '&pageSize='+ params.pageSize +
-                '&language='+ params.language +
-                '&sortBy='  + params.sortBy +
-                '&apiKey=' + params.api_key;
-  
-    options.path += str;
-    return options;
-  }
-
-  module.exports = {getNewsObjects};
+module.exports = {getNewsObjects};
   
